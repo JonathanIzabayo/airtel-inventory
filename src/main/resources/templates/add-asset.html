@@ -12,7 +12,6 @@
         .welcome-text{font-size:14px;}
         .role-badge{background-color:#8B0000;padding:4px 12px;border-radius:20px;font-size:12px;margin-left:10px;}
         .logout-btn{color:white;text-decoration:none;background-color:#8B0000;padding:5px 15px;border-radius:5px;}
-        .change-pwd-btn{color:white;text-decoration:none;background-color:#8B0000;padding:5px 15px;border-radius:5px;margin-right:10px;}
         .nav-bar{padding:1rem 0;}
         .container{max-width:800px;margin:0 auto;padding:0 20px;}
         .nav{display:flex;justify-content:space-between;align-items:center;}
@@ -37,7 +36,7 @@
 </head>
 <body>
     <div class="header">
-        <div class="user-info"><div class="container"><div><span class="welcome-text">👋 Welcome, <span sec:authentication="name"></span></span><span class="role-badge" th:text="'Role: ' + ${userRole}"></span></div><div><a href="/change-password" class="change-pwd-btn">🔐 Change Password</a><a href="/logout" class="logout-btn">🚪 Logout</a></div></div></div>
+        <div class="user-info"><div class="container"><div><span class="welcome-text">👋 Welcome, <span sec:authentication="name"></span></span><span class="role-badge" th:text="'Role: ' + ${userRole}"></span></div><a href="/logout" class="logout-btn">🚪 Logout</a></div></div>
         <div class="nav-bar"><div class="container"><div class="nav"><div class="logo">📱 AIRTEL <span>RWANDA</span></div><ul class="nav-links"><li><a href="/dashboard">Dashboard</a></li><li><a href="/assets">Assets</a></li><li><a href="/users">Users</a></li><li><a href="/assignments">Assignments</a></li><li><a href="/reports">Reports</a></li></ul></div></div></div>
     </div>
     <div class="main-content"><div class="container">
@@ -54,6 +53,6 @@
             <div class="form-actions"><button type="submit" class="btn btn-primary">💾 Save Asset</button><a href="/assets" class="btn btn-secondary">❌ Cancel</a></div>
         </form></div>
     </div></div>
-    <div class="footer"><div class="container"><p>&copy; 2024 Airtel Rwanda - Inventory System</p></div></div>
+    <div class="footer"><div class="container"><p>&copy; 2026 Jonathan & Denys Developers</p></div></div>
 </body>
 </html>
