@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Return Asset - Airtel Rwanda</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background-color:#f5f5f5;}
+        .header{background-color:#E31E24;color:white;}
+        .user-info{background-color:#C8102E;padding:8px 0;}
+        .user-info .container{display:flex;justify-content:space-between;align-items:center;max-width:800px;margin:0 auto;padding:0 20px;}
+        .welcome-text{font-size:14px;}
+        .role-badge{background-color:#8B0000;padding:4px 12px;border-radius:20px;font-size:12px;margin-left:10px;}
+        .logout-btn{color:white;text-decoration:none;background-color:#8B0000;padding:5px 15px;border-radius:5px;}
+        .change-pwd-btn{color:white;text-decoration:none;background-color:#8B0000;padding:5px 15px;border-radius:5px;margin-right:10px;}
+        .nav-bar{padding:1rem 0;}
+        .container{max-width:800px;margin:0 auto;padding:0 20px;}
+        .nav{display:flex;justify-content:space-between;align-items:center;}
+        .logo{font-size:1.5rem;font-weight:bold;}
+        .logo span{color:#ffcc00;}
+        .nav-links{display:flex;list-style:none;gap:2rem;}
+        .nav-links a{color:white;text-decoration:none;padding:0.5rem 1rem;border-radius:5px;}
+        .nav-links a:hover{background-color:#8B0000;}
+        .main-content{padding:2rem 0;}
+        .form-container{background:white;border-radius:10px;padding:2rem;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+        h1{color:#E31E24;margin-bottom:2rem;}
+        .assignment-details{background-color:#f8f9fa;padding:1rem;border-radius:8px;margin-bottom:1.5rem;}
+        .detail-row{display:flex;margin-bottom:0.5rem;}
+        .detail-label{font-weight:bold;width:150px;color:#E31E24;}
+        .form-group{margin-bottom:1.5rem;}
+        label{display:block;margin-bottom:0.5rem;font-weight:bold;color:#333;}
+        select,textarea{width:100%;padding:0.5rem;border:1px solid #ddd;border-radius:6px;}
+        .btn{display:inline-block;padding:0.5rem 1rem;border:none;border-radius:6px;cursor:pointer;text-decoration:none;}
+        .btn-warning{background-color:#ffc107;color:#333;}
+        .btn-secondary{background-color:#6c757d;color:white;}
+        .form-actions{display:flex;gap:1rem;margin-top:2rem;}
+        .footer{background-color:#E31E24;color:white;text-align:center;padding:1rem 0;margin-top:2rem;}
+        .info-box{background-color:#fff3cd;padding:1rem;border-radius:8px;margin-bottom:1rem;border-left:4px solid #ffc107;}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="user-info"><div class="container"><div><span class="welcome-text">👋 Welcome, <span sec:authentication="name"></span></span><span class="role-badge" th:text="'Role: ' + ${userRole}"></span></div><div><a href="/change-password" class="change-pwd-btn">🔐 Change Password</a><a href="/logout" class="logout-btn">🚪 Logout</a></div></div></div>
+        <div class="nav-bar"><div class="container"><div class="nav"><div class="logo">📱 AIRTEL <span>RWANDA</span></div><ul class="nav-links"><li><a href="/dashboard">Dashboard</a></li><li><a href="/assets">Assets</a></li><li><a href="/users">Users</a></li><li><a href="/assignments">Assignments</a></li><li><a href="/reports">Reports</a></li></ul></div></div></div>
+    </div>
+    <div class="main-content"><div class="container">
+        <div class="form-container"><h1>🔄 Return Asset</h1>
+        <div class="info-box"><strong>⚠️ Note:</strong> Please inspect the asset condition before returning.</div>
+        <div class="assignment-details"><div class="detail-row"><div class="detail-label">Asset:</div><div th:text="${assignment.asset != null ? assignment.asset.name + ' (' + assignment.asset.serialNumber + ')' : 'N/A'}">-</div></div>
+        <div class="detail-row"><div class="detail-label">Assigned To:</div><div th:text="${assignment.user != null ? assignment.user.fullName : 'N/A'}">-</div></div>
+        <div class="detail-row"><div class="detail-label">Department:</div><div th:text="${assignment.user != null ? assignment.user.department : 'N/A'}">-</div></div>
+        <div class="detail-row"><div class="detail-label">Assigned Date:</div><div th:text="${#temporals.format(assignment.assignedDate, 'yyyy-MM-dd')}">-</div></div></div>
+        <form th:action="@{/assignments/return/{id}(id=${assignment.id})}" method="post">
+            <div class="form-group"><label>Condition at Return *</label><select name="conditionAtReturn" required><option value="GOOD">Good</option><option value="FAIR">Fair</option><option value="POOR">Poor</option><option value="DAMAGED">Damaged</option></select></div>
+            <div class="form-group"><label>Remarks</label><textarea name="remarks" rows="3" placeholder="Enter notes..."></textarea></div>
+            <div class="form-actions"><button type="submit" class="btn btn-warning">✅ Confirm Return</button><a href="/assignments" class="btn btn-secondary">❌ Cancel</a></div>
+        </form></div>
+    </div></div>
+    <div class="footer"><div class="container"><p>&copy; 2024 Airtel Rwanda - Inventory System</p></div></div>
+</body>
+</html>

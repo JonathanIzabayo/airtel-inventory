@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Reports - Airtel Rwanda</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background-color:#f5f5f5;}
+        .header{background-color:#E31E24;color:white;}
+        .user-info{background-color:#C8102E;padding:8px 0;}
+        .user-info .container{display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:0 auto;padding:0 20px;}
+        .welcome-text{font-size:14px;}
+        .role-badge{background-color:#8B0000;padding:4px 12px;border-radius:20px;font-size:12px;margin-left:10px;}
+        .logout-btn{color:white;text-decoration:none;background-color:#8B0000;padding:5px 15px;border-radius:5px;}
+        .change-pwd-btn{color:white;text-decoration:none;background-color:#8B0000;padding:5px 15px;border-radius:5px;margin-right:10px;}
+        .nav-bar{padding:1rem 0;}
+        .container{max-width:1400px;margin:0 auto;padding:0 20px;}
+        .nav{display:flex;justify-content:space-between;align-items:center;}
+        .logo{font-size:1.5rem;font-weight:bold;}
+        .logo span{color:#ffcc00;}
+        .nav-links{display:flex;list-style:none;gap:2rem;}
+        .nav-links a{color:white;text-decoration:none;padding:0.5rem 1rem;border-radius:5px;}
+        .nav-links a:hover,.nav-links a.active{background-color:#8B0000;}
+        .main-content{padding:2rem 0;}
+        h1{color:#E31E24;text-align:center;margin-bottom:2rem;}
+        .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem;}
+        .stat-card{background:white;padding:1rem;border-radius:10px;text-align:center;border-top:3px solid #E31E24;}
+        .stat-card h3{color:#666;font-size:0.875rem;}
+        .stat-card .number{font-size:1.8rem;font-weight:bold;color:#E31E24;}
+        .section{background:white;border-radius:10px;padding:1.5rem;margin-bottom:2rem;}
+        .section h2{color:#E31E24;margin-bottom:1rem;border-bottom:2px solid #E31E24;padding-bottom:0.5rem;}
+        .filter-form{display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;}
+        .filter-group{flex:1;min-width:150px;}
+        .filter-group label{display:block;margin-bottom:0.25rem;font-weight:bold;}
+        .filter-group input,.filter-group select{width:100%;padding:0.5rem;border:1px solid #ddd;border-radius:6px;}
+        .btn{display:inline-block;padding:0.5rem 1rem;border:none;border-radius:6px;cursor:pointer;text-decoration:none;}
+        .btn-primary{background-color:#E31E24;color:white;}
+        table{width:100%;border-collapse:collapse;}
+        th,td{padding:0.75rem;text-align:left;border-bottom:1px solid #eee;}
+        th{background-color:#f8f9fa;color:#E31E24;}
+        .badge{padding:0.25rem 0.5rem;border-radius:20px;font-size:0.75rem;}
+        .badge-success{background-color:#d4edda;color:#155724;}
+        .badge-warning{background-color:#fff3cd;color:#856404;}
+        .badge-info{background-color:#d1ecf1;color:#0c5460;}
+        .footer{background-color:#E31E24;color:white;text-align:center;padding:1rem 0;margin-top:2rem;}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="user-info"><div class="container"><div><span class="welcome-text">👋 Welcome, <span sec:authentication="name"></span></span><span class="role-badge" th:text="'Role: ' + ${userRole}"></span></div><div><a href="/change-password" class="change-pwd-btn">🔐 Change Password</a><a href="/logout" class="logout-btn">🚪 Logout</a></div></div></div>
+        <div class="nav-bar"><div class="container"><div class="nav"><div class="logo">📱 AIRTEL <span>RWANDA</span></div><ul class="nav-links"><li><a href="/dashboard">Dashboard</a></li><li><a href="/assets">Assets</a></li><li><a href="/users">Users</a></li><li><a href="/assignments">Assignments</a></li><li><a href="/reports" class="active">Reports</a></li></ul></div></div></div>
+    </div>
+    <div class="main-content"><div class="container">
+        <h1>📊 Reports & Analytics</h1>
+        <div class="stats-grid"><div class="stat-card"><h3>Total Assets</h3><div class="number" th:text="${totalAssets}">0</div></div><div class="stat-card"><h3>Available</h3><div class="number" th:text="${availableAssets}">0</div></div><div class="stat-card"><h3>Assigned</h3><div class="number" th:text="${assignedAssets}">0</div></div><div class="stat-card"><h3>Maintenance</h3><div class="number" th:text="${maintenanceAssets}">0</div></div></div>
+        <div class="section"><h2>🔍 Filter Reports</h2>
+        <form method="get" action="/reports/filter" class="filter-form"><div class="filter-group"><label>Report Type</label><select name="reportType"><option value="assignments">Assignments</option><option value="audit">Audit Log</option></select></div>
+        <div class="filter-group"><label>Start Date</label><input type="date" name="startDate"></div><div class="filter-group"><label>End Date</label><input type="date" name="endDate"></div>
+        <div class="filter-group"><button type="submit" class="btn btn-primary">Generate Report</button></div></form></div>
+        <div class="section" th:if="${filteredAssignments != null}"><h2>Assignments Report</h2></table><thead><tr><th>Asset</th><th>User</th><th>Department</th><th>Assigned Date</th><th>Return Date</th><th>Status</th></tr></thead>
+        <tbody><tr th:each="a : ${filteredAssignments}"><td th:text="${a.asset.name}">-</td><td th:text="${a.user.fullName}">-</td><td th:text="${a.user.department}">-</td><td th:text="${#temporals.format(a.assignedDate, 'yyyy-MM-dd')}">-</td><td th:text="${a.returnDate != null ? #temporals.format(a.returnDate, 'yyyy-MM-dd') : '-'}">-</td>
+        <td><span class="badge" th:class="${a.status == 'ACTIVE' ? 'badge-success' : 'badge-warning'}" th:text="${a.status}">-</span></td></tr></tbody></table></div>
+        <div class="section" th:if="${filteredLogs != null}"><h2>Audit Log Report</h2><td><thead><tr><th>Timestamp</th><th>Action</th><th>Description</th></tr></thead>
+        <tbody><tr th:each="log : ${filteredLogs}"><td th:text="${#temporals.format(log.timestamp, 'yyyy-MM-dd HH:mm:ss')}">-</td><td><span class="badge badge-info" th:text="${log.action}">-</span></td><td th:text="${log.description}">-</td></tr></tbody></table></div>
+    </div></div>
+    <div class="footer"><div class="container"><p>&copy; 2024 Airtel Rwanda - Inventory System</p></div></div>
+</body>
+</html>

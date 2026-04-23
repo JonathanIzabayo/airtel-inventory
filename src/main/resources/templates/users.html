@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Users - Airtel Rwanda</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background-color:#f5f5f5;}
+        .header{background-color:#E31E24;color:white;}
+        .user-info{background-color:#C8102E;padding:8px 0;}
+        .user-info .container{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;padding:0 20px;}
+        .welcome-text{font-size:14px;}
+        .role-badge{background-color:#8B0000;padding:4px 12px;border-radius:20px;font-size:12px;margin-left:10px;}
+        .logout-btn{color:white;text-decoration:none;background-color:#8B0000;padding:5px 15px;border-radius:5px;}
+        .change-pwd-btn{color:white;text-decoration:none;background-color:#8B0000;padding:5px 15px;border-radius:5px;margin-right:10px;}
+        .nav-bar{padding:1rem 0;}
+        .container{max-width:1200px;margin:0 auto;padding:0 20px;}
+        .nav{display:flex;justify-content:space-between;align-items:center;}
+        .logo{font-size:1.5rem;font-weight:bold;}
+        .logo span{color:#ffcc00;}
+        .nav-links{display:flex;list-style:none;gap:2rem;}
+        .nav-links a{color:white;text-decoration:none;padding:0.5rem 1rem;border-radius:5px;}
+        .nav-links a:hover,.nav-links a.active{background-color:#8B0000;}
+        .main-content{padding:2rem 0;}
+        .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;}
+        h1{color:#E31E24;}
+        .btn{display:inline-block;padding:0.5rem 1rem;border:none;border-radius:6px;cursor:pointer;text-decoration:none;}
+        .btn-primary{background-color:#E31E24;color:white;}
+        .btn-warning{background-color:#ffc107;color:#333;}
+        .btn-danger{background-color:#dc3545;color:white;}
+        .btn-sm{padding:0.25rem 0.5rem;font-size:0.875rem;}
+        .alert{padding:1rem;border-radius:8px;margin-bottom:1rem;}
+        .alert-success{background-color:#d4edda;color:#155724;}
+        .alert-error{background-color:#f8d7da;color:#721c24;}
+        .search-box{background:white;padding:1rem;border-radius:10px;margin-bottom:1rem;}
+        .search-form{display:flex;gap:1rem;}
+        .search-input{flex:1;padding:0.5rem;border:1px solid #ddd;border-radius:6px;}
+        .table-container{background:white;border-radius:10px;padding:1rem;overflow-x:auto;}
+        table{width:100%;border-collapse:collapse;}
+        th,td{padding:0.75rem;text-align:left;border-bottom:1px solid #eee;}
+        th{background-color:#f8f9fa;color:#E31E24;}
+        .action-btns{display:flex;gap:0.5rem;}
+        .footer{background-color:#E31E24;color:white;text-align:center;padding:1rem 0;}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="user-info"><div class="container"><div><span class="welcome-text">👋 Welcome, <span sec:authentication="name"></span></span><span class="role-badge" th:text="'Role: ' + ${userRole}"></span></div><div><a href="/change-password" class="change-pwd-btn">🔐 Change Password</a><a href="/logout" class="logout-btn">🚪 Logout</a></div></div></div>
+        <div class="nav-bar"><div class="container"><div class="nav"><div class="logo">📱 AIRTEL <span>RWANDA</span></div><ul class="nav-links"><li><a href="/dashboard">Dashboard</a></li><li><a href="/assets">Assets</a></li><li><a href="/users" class="active">Users</a></li><li><a href="/assignments">Assignments</a></li><li><a href="/reports">Reports</a></li></ul></div></div></div>
+    </div>
+    <div class="main-content"><div class="container">
+        <div class="page-header"><h1>👥 User Management</h1><a href="/users/add" class="btn btn-primary">➕ Add New User</a></div>
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div><div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+        <div class="search-box"><form method="get" action="/users" class="search-form"><input type="text" name="search" class="search-input" placeholder="Search by name, email, department..." th:value="${searchKeyword}"><button type="submit" class="btn btn-primary">🔍 Search</button><a href="/users" class="btn btn-primary">🔄 Reset</a></form></div>
+        <div class="table-container"><table><thead><tr><th>ID</th><th>Full Name</th><th>Department</th><th>Email</th><th>Phone</th><th>Actions</th></tr></thead>
+        <tbody><tr th:each="user : ${users}"><td th:text="${user.id}">-</td><td th:text="${user.fullName}">-</td><td th:text="${user.department}">-</td><td th:text="${user.email}">-</td><td th:text="${user.phone}">-</td>
+        <td class="action-btns"><a th:href="@{/users/edit/{id}(id=${user.id})}" class="btn btn-warning btn-sm">✏️ Edit</a><a th:href="@{/users/delete/{id}(id=${user.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Delete this user?')">🗑️ Delete</a></td></tr>
+        <tr th:if="${users == null or users.isEmpty()}"><td colspan="6" style="text-align:center">No users found</td></tr></tbody></table></div>
+    </div></div>
+    <div class="footer"><div class="container"><p>&copy; 2024 Airtel Rwanda - Inventory System</p></div></div>
+</body>
+</html>
