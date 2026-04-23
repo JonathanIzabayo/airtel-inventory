@@ -12,59 +12,205 @@
         .welcome-text{font-size:14px;}
         .role-badge{background-color:#8B0000;padding:4px 12px;border-radius:20px;font-size:12px;margin-left:10px;}
         .logout-btn{color:white;text-decoration:none;background-color:#8B0000;padding:5px 15px;border-radius:5px;}
-        .change-pwd-btn{color:white;text-decoration:none;background-color:#8B0000;padding:5px 15px;border-radius:5px;margin-right:10px;}
+        .logout-btn:hover{background-color:#5c0000;}
         .nav-bar{padding:1rem 0;}
         .container{max-width:1400px;margin:0 auto;padding:0 20px;}
-        .nav{display:flex;justify-content:space-between;align-items:center;}
+        .nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
         .logo{font-size:1.5rem;font-weight:bold;}
         .logo span{color:#ffcc00;}
-        .nav-links{display:flex;list-style:none;gap:2rem;}
-        .nav-links a{color:white;text-decoration:none;padding:0.5rem 1rem;border-radius:5px;}
+        .nav-links{display:flex;list-style:none;gap:1rem;flex-wrap:wrap;}
+        .nav-links a{color:white;text-decoration:none;padding:0.5rem 1rem;border-radius:5px;transition:background 0.3s;}
         .nav-links a:hover,.nav-links a.active{background-color:#8B0000;}
         .main-content{padding:2rem 0;}
-        .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;}
+        .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;}
         h1{color:#E31E24;}
-        .btn{display:inline-block;padding:0.5rem 1rem;border:none;border-radius:6px;cursor:pointer;text-decoration:none;}
+        .btn{display:inline-block;padding:10px 20px;border:none;border-radius:6px;cursor:pointer;text-decoration:none;font-size:14px;font-weight:bold;transition:all 0.3s;}
         .btn-success{background-color:#28a745;color:white;}
+        .btn-success:hover{background-color:#218838;transform:translateY(-2px);}
         .btn-warning{background-color:#ffc107;color:#333;}
+        .btn-warning:hover{background-color:#e0a800;transform:translateY(-2px);}
         .btn-danger{background-color:#dc3545;color:white;}
-        .btn-sm{padding:0.25rem 0.5rem;font-size:0.875rem;}
+        .btn-danger:hover{background-color:#c82333;transform:translateY(-2px);}
+        .btn-primary{background-color:#E31E24;color:white;}
+        .btn-primary:hover{background-color:#C8102E;transform:translateY(-2px);}
+        .btn-sm{padding:5px 10px;font-size:12px;}
         .alert{padding:1rem;border-radius:8px;margin-bottom:1rem;}
-        .alert-success{background-color:#d4edda;color:#155724;}
-        .alert-error{background-color:#f8d7da;color:#721c24;}
+        .alert-success{background-color:#d4edda;color:#155724;border:1px solid #c3e6cb;}
+        .alert-error{background-color:#f8d7da;color:#721c24;border:1px solid #f5c6cb;}
         .tabs{display:flex;gap:1rem;margin-bottom:1rem;}
-        .tab{padding:0.5rem 1rem;background-color:#ecf0f1;cursor:pointer;border-radius:6px;}
+        .tab{padding:10px 20px;background-color:#ecf0f1;cursor:pointer;border-radius:6px;transition:all 0.3s;}
         .tab.active{background-color:#E31E24;color:white;}
-        .table-container{background:white;border-radius:10px;padding:1rem;overflow-x:auto;}
+        .tab:hover{background-color:#c0392b;color:white;}
+        .table-container{background:white;border-radius:10px;padding:1.5rem;box-shadow:0 2px 10px rgba(0,0,0,0.1);overflow-x:auto;margin-bottom:2rem;}
         table{width:100%;border-collapse:collapse;}
         th,td{padding:0.75rem;text-align:left;border-bottom:1px solid #eee;}
-        th{background-color:#f8f9fa;color:#E31E24;}
-        .badge-active{background-color:#d4edda;color:#155724;padding:0.25rem 0.5rem;border-radius:20px;font-size:0.75rem;}
-        .badge-returned{background-color:#cce5ff;color:#004085;padding:0.25rem 0.5rem;border-radius:20px;font-size:0.75rem;}
+        th{background-color:#f8f9fa;font-weight:bold;color:#E31E24;}
+        tr:hover{background-color:#fef5f5;}
+        .badge-active{background-color:#d4edda;color:#155724;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:bold;}
+        .badge-returned{background-color:#cce5ff;color:#004085;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:bold;}
+        .action-buttons{display:flex;gap:1rem;margin-top:2rem;justify-content:center;flex-wrap:wrap;}
         .footer{background-color:#E31E24;color:white;text-align:center;padding:1rem 0;margin-top:2rem;}
+        h3{color:#E31E24;margin-bottom:1rem;}
+        .no-data{text-align:center;padding:2rem;color:#666;}
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="user-info"><div class="container"><div><span class="welcome-text">👋 Welcome, <span sec:authentication="name"></span></span><span class="role-badge" th:text="'Role: ' + ${userRole}"></span></div><div><a href="/change-password" class="change-pwd-btn">🔐 Change Password</a><a href="/logout" class="logout-btn">🚪 Logout</a></div></div></div>
-        <div class="nav-bar"><div class="container"><div class="nav"><div class="logo">📱 AIRTEL <span>RWANDA</span></div><ul class="nav-links"><li><a href="/dashboard">Dashboard</a></li><li><a href="/assets">Assets</a></li><li><a href="/users">Users</a></li><li><a href="/assignments" class="active">Assignments</a></li><li><a href="/reports">Reports</a></li></ul></div></div></div>
+        <div class="user-info">
+            <div class="container">
+                <div>
+                    <span class="welcome-text">👋 Welcome, <span sec:authentication="name"></span></span>
+                    <span class="role-badge" th:text="'Role: ' + ${userRole}"></span>
+                </div>
+                <a href="/logout" class="logout-btn">🚪 Logout</a>
+            </div>
+        </div>
+        <div class="nav-bar">
+            <div class="container">
+                <div class="nav">
+                    <div class="logo">📱 AIRTEL <span>RWANDA</span></div>
+                    <ul class="nav-links">
+                        <li><a href="/dashboard">Dashboard</a></li>
+                        <li><a href="/assets">Assets</a></li>
+                        <li><a href="/users">Users</a></li>
+                        <li><a href="/assignments" class="active">Assignments</a></li>
+                        <li><a href="/reports">Reports</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="main-content"><div class="container">
-        <div class="page-header"><h1>🔄 Asset Assignments</h1><a href="/assignments/assign" class="btn btn-success">📤 New Assignment</a></div>
-        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div><div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
-        <div class="tabs"><div class="tab active" onclick="showTab('all')">All Assignments</div><div class="tab" onclick="showTab('active')">Active Assignments</div></div>
-        <div id="allTab" class="table-container"><h3>All Assignments</h3><table><thead><tr><th>ID</th><th>Asset</th><th>Assigned To</th><th>Department</th><th>Assigned Date</th><th>Return Date</th><th>Status</th><th>Action</th></tr></thead>
-        <tbody><tr th:each="assignment : ${assignments}"><td th:text="${assignment.id}">-</td><td th:text="${assignment.asset.name}">-</td><td th:text="${assignment.user.fullName}">-</td><td th:text="${assignment.user.department}">-</td>
-        <td th:text="${#temporals.format(assignment.assignedDate, 'yyyy-MM-dd')}">-</td><td th:text="${assignment.returnDate != null ? #temporals.format(assignment.returnDate, 'yyyy-MM-dd') : '-'}">-</td>
-        <td><span class="badge-active" th:if="${assignment.status == 'ACTIVE'}" th:text="${assignment.status}">ACTIVE</span><span class="badge-returned" th:if="${assignment.status != 'ACTIVE'}" th:text="${assignment.status}">RETURNED</span></td>
-        <td><a th:if="${assignment.status == 'ACTIVE'}" th:href="@{/assignments/return/{id}(id=${assignment.id})}" class="btn btn-warning btn-sm">🔄 Return</a></td></tr>
-        <tr th:if="${assignments == null or assignments.isEmpty()}"><td colspan="8" style="text-align:center">No assignments found</td></tr></tbody></table></div>
-        <div id="activeTab" class="table-container" style="display:none;"><h3>Active Assignments</h3><table><thead><tr><th>Asset</th><th>Assigned To</th><th>Department</th><th>Assigned Date</th><th>Action</th></tr></thead>
-        <tbody><tr th:each="assignment : ${activeAssignments}"><td th:text="${assignment.asset.name}">-</td><td th:text="${assignment.user.fullName}">-</td><td th:text="${assignment.user.department}">-</td>
-        <td th:text="${#temporals.format(assignment.assignedDate, 'yyyy-MM-dd')}">-</td><td><a th:href="@{/assignments/return/{id}(id=${assignment.id})}" class="btn btn-warning btn-sm">🔄 Return</a></td></tr>
-        <tr th:if="${activeAssignments == null or activeAssignments.isEmpty()}"><td colspan="5" style="text-align:center">No active assignments</td></tr></tbody></table></div>
-    </div></div>
-    <script>function showTab(tab){var allTab=document.getElementById('allTab'),activeTab=document.getElementById('activeTab'),tabs=document.querySelectorAll('.tab');tabs.forEach(function(t){t.classList.remove('active');});if(tab==='all'){allTab.style.display='block';activeTab.style.display='none';tabs[0].classList.add('active');}else{allTab.style.display='none';activeTab.style.display='block';tabs[1].classList.add('active');}}</script>
-    <div class="footer"><div class="container"><p>&copy; 2024 Airtel Rwanda - Inventory System</p></div></div>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>🔄 Asset Assignments</h1>
+                <a href="/assignments/assign" class="btn btn-success">➕ New Assignment</a>
+            </div>
+
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('all')">📋 All Assignments</div>
+                <div class="tab" onclick="showTab('active')">✅ Active Assignments</div>
+            </div>
+
+            <!-- All Assignments Tab -->
+            <div id="allTab" class="table-container">
+                <h3>📋 All Assignments History</h3>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Asset Name</th>
+                                <th>Asset Type</th>
+                                <th>Assigned To</th>
+                                <th>Department</th>
+                                <th>Assigned Date</th>
+                                <th>Return Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="assignment : ${assignments}">
+                                <td th:text="${assignment.id}">-</td>
+                                <td th:text="${assignment.asset != null ? assignment.asset.name : 'N/A'}">-</td>
+                                <td th:text="${assignment.asset != null ? assignment.asset.type : 'N/A'}">-</td>
+                                <td th:text="${assignment.user != null ? assignment.user.fullName : 'N/A'}">-</td>
+                                <td th:text="${assignment.user != null ? assignment.user.department : 'N/A'}">-</td>
+                                <td th:text="${#temporals.format(assignment.assignedDate, 'yyyy-MM-dd')}">-</td>
+                                <td th:text="${assignment.returnDate != null ? #temporals.format(assignment.returnDate, 'yyyy-MM-dd') : '-'}">-</td>
+                                <td>
+                                    <span th:if="${assignment.status == 'ACTIVE'}" class="badge-active">ACTIVE</span>
+                                    <span th:if="${assignment.status != 'ACTIVE'}" class="badge-returned">RETURNED</span>
+                                </td>
+                                <td>
+                                    <a th:if="${assignment.status == 'ACTIVE'}" th:href="@{/assignments/return/{id}(id=${assignment.id})}" class="btn btn-warning btn-sm">🔄 Return</a>
+                                </td>
+                             </tr>
+                            <tr th:if="${assignments == null or assignments.isEmpty()}">
+                                <td colspan="9" class="no-data">No assignments found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Active Assignments Tab -->
+            <div id="activeTab" class="table-container" style="display:none;">
+                <h3>✅ Currently Active Assignments</h3>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Asset Name</th>
+                                <th>Asset Type</th>
+                                <th>Assigned To</th>
+                                <th>Department</th>
+                                <th>Assigned Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="assignment : ${activeAssignments}">
+                                <td th:text="${assignment.id}">-</td>
+                                <td th:text="${assignment.asset != null ? assignment.asset.name : 'N/A'}">-</td>
+                                <td th:text="${assignment.asset != null ? assignment.asset.type : 'N/A'}">-</td>
+                                <td th:text="${assignment.user != null ? assignment.user.fullName : 'N/A'}">-</td>
+                                <td th:text="${assignment.user != null ? assignment.user.department : 'N/A'}">-</td>
+                                <td th:text="${#temporals.format(assignment.assignedDate, 'yyyy-MM-dd')}">-</td>
+                                <td>
+                                    <a th:href="@{/assignments/return/{id}(id=${assignment.id})}" class="btn btn-warning btn-sm">🔄 Return Asset</a>
+                                </td>
+                            </tr>
+                            <tr th:if="${activeAssignments == null or activeAssignments.isEmpty()}">
+                                <td colspan="7" class="no-data">No active assignments found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Quick Action Buttons -->
+            <div class="action-buttons">
+                <a href="/assets/add" class="btn btn-primary">➕ Add New Asset</a>
+                <a href="/assignments/assign" class="btn btn-success">📤 Assign Asset</a>
+                <a href="/reports" class="btn btn-info">📊 Reports</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <p>&copy; 2024 Jonathan & Denys Developers</p>
+            <p><small>Role-Based Access Control | Offline Mode</small></p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tab) {
+            var allTab = document.getElementById('allTab');
+            var activeTab = document.getElementById('activeTab');
+            var tabs = document.querySelectorAll('.tab');
+            
+            tabs.forEach(function(t) {
+                t.classList.remove('active');
+            });
+            
+            if (tab === 'all') {
+                allTab.style.display = 'block';
+                activeTab.style.display = 'none';
+                tabs[0].classList.add('active');
+            } else {
+                allTab.style.display = 'none';
+                activeTab.style.display = 'block';
+                tabs[1].classList.add('active');
+            }
+        }
+    </script>
 </body>
 </html>
