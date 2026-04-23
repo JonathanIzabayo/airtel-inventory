@@ -6,7 +6,7 @@ RUN mvn dependency:go-offline
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-# Run stage - use Eclipse Temurin (works!)
+# Run stage - use Eclipse Temurin (NOT openjdk)
 FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 COPY --from=build /app/target/inventory-1.0.0.jar app.jar
