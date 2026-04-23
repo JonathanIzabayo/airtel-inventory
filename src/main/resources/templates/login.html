@@ -4,32 +4,202 @@
     <meta charset="UTF-8">
     <title>Airtel Rwanda - Login</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg, #E31E24 0%, #8B0000 100%);height:100vh;display:flex;justify-content:center;align-items:center;}
-        .login-container{background:white;border-radius:15px;box-shadow:0 20px 40px rgba(0,0,0,0.3);width:450px;padding:40px;animation:fadeIn 0.5s ease-in;}
-        @keyframes fadeIn{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
-        .logo{text-align:center;margin-bottom:30px;}
-        .logo h1{color:#E31E24;font-size:32px;font-weight:bold;}
-        .logo p{color:#666;font-size:14px;margin-top:5px;}
-        .logo .airtel-badge{background-color:#E31E24;color:white;display:inline-block;padding:5px 15px;border-radius:20px;font-size:12px;margin-top:10px;}
-        .form-group{margin-bottom:20px;}
-        label{display:block;margin-bottom:8px;font-weight:bold;color:#333;}
-        input{width:100%;padding:12px;border:2px solid #ddd;border-radius:8px;font-size:14px;transition:border-color 0.3s;}
-        input:focus{outline:none;border-color:#E31E24;}
-        .btn{width:100%;padding:12px;background:#E31E24;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:transform 0.2s,background 0.3s;}
-        .btn:hover{background:#C8102E;transform:translateY(-2px);}
-        .error-message{background-color:#ffe5e5;color:#E31E24;padding:12px;border-radius:8px;margin-bottom:20px;border-left:4px solid #E31E24;font-size:14px;}
-        .success-message{background-color:#d4edda;color:#155724;padding:12px;border-radius:8px;margin-bottom:20px;border-left:4px solid #28a745;font-size:14px;}
-        .info{text-align:center;margin-top:20px;padding-top:20px;border-top:1px solid #eee;font-size:12px;color:#666;}
-        .credentials-box{background-color:#f0f0f0;padding:15px;border-radius:8px;margin-top:20px;}
-        .credentials-box strong{color:#E31E24;}
-        .credential-item{background:white;padding:10px;border-radius:5px;margin-bottom:8px;text-align:center;}
-        .credential-item:last-child{margin-bottom:0;}
-        .credential-item span{color:#E31E24;font-weight:bold;}
-        .main-credential{background:linear-gradient(135deg, #E31E24 0%, #8B0000 100%);color:white;padding:15px;border-radius:10px;margin-bottom:20px;text-align:center;}
-        .main-credential strong{font-size:14px;opacity:0.9;}
-        .main-credential .cred{font-size:16px;font-weight:bold;margin-top:5px;}
-        .main-credential .cred span{background:rgba(255,255,255,0.2);padding:3px 8px;border-radius:5px;}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #E31E24 0%, #8B0000 100%);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            width: 400px;
+            max-width: 90%;
+            padding: 25px 30px;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo h1 {
+            color: #E31E24;
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        
+        .logo p {
+            color: #666;
+            font-size: 12px;
+        }
+        
+        /* Main Credential Box */
+        .main-credential {
+            background: linear-gradient(135deg, #E31E24 0%, #8B0000 100%);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .main-credential strong {
+            font-size: 11px;
+            opacity: 0.9;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .main-credential .cred {
+            font-size: 13px;
+            font-weight: bold;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 12px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+            font-size: 12px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 13px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #E31E24;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: #E31E24;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            margin-top: 5px;
+        }
+        
+        .btn:hover {
+            background: #C8102E;
+            transform: translateY(-2px);
+        }
+        
+        /* Message Styles */
+        .error-message {
+            background-color: #ffe5e5;
+            color: #E31E24;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            border-left: 4px solid #E31E24;
+            font-size: 12px;
+        }
+        
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            border-left: 4px solid #28a745;
+            font-size: 12px;
+        }
+        
+        /* Credentials Box */
+        .credentials-box {
+            background-color: #f8f9fa;
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .credentials-box strong {
+            color: #E31E24;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 11px;
+            text-align: center;
+        }
+        
+        .credential-item {
+            background: white;
+            padding: 5px 8px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            text-align: center;
+            font-size: 11px;
+            border: 1px solid #eee;
+        }
+        
+        .credential-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .credential-item span {
+            color: #E31E24;
+            font-weight: bold;
+        }
+        
+        /* Footer Info */
+        .info {
+            text-align: center;
+            margin-top: 12px;
+            padding-top: 8px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 10px;
+            color: #888;
+        }
+        
+        .info p {
+            margin: 3px 0;
+        }
     </style>
 </head>
 <body>
@@ -37,34 +207,58 @@
         <div class="logo">
             <h1>🏢 AIRTEL RWANDA</h1>
             <p>Inventory Management System</p>
-            <div class="airtel-badge">Enterprise Edition</div>
         </div>
         
-        <div th:if="${param.error}" class="error-message">❌ Invalid username or password. Please try again.</div>
-        <div th:if="${param.logout}" class="success-message">✅ You have been logged out successfully.</div>
-        <div th:if="${param.passwordChanged}" class="success-message">✅ Password changed successfully! Please login with your new password.</div>
+        <!-- Error/Success Messages -->
+        <div th:if="${param.error}" class="error-message">
+            ❌ Invalid username or password
+        </div>
         
+        <div th:if="${param.logout}" class="success-message">
+            ✅ Logged out successfully
+        </div>
+        
+        <div th:if="${param.passwordChanged}" class="success-message">
+            ✅ Password changed! Login again
+        </div>
+        
+        <!-- Main Admin Credentials -->
         <div class="main-credential">
             <strong>🔐 ADMIN LOGIN</strong>
-            <div class="cred">Username: <span>24rp11881</span> &nbsp;|&nbsp; Password: <span>24rp11334</span></div>
+            <div class="cred">
+                24rp11881 / 24rp11334
+            </div>
         </div>
         
+        <!-- Login Form -->
         <form method="post" action="/login">
-            <div class="form-group"><label for="username">Username</label><input type="text" id="username" name="username" required autofocus placeholder="Enter your username"></div>
-            <div class="form-group"><label for="password">Password</label><input type="password" id="password" name="password" required placeholder="Enter your password"></div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autofocus placeholder="Enter your username">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
+            
             <button type="submit" class="btn">Login to System</button>
         </form>
         
+        <!-- Other Credentials -->
         <div class="credentials-box">
-            <strong>📋 System Credentials:</strong>
-            <div class="credential-item"><span>Administrator:</span> 24rp11881 / 24rp11334</div>
-            <div class="credential-item"><span>Manager:</span> manager / manager123</div>
-            <div class="credential-item"><span>User:</span> user / user123</div>
+            <strong>📋 OTHER CREDENTIALS</strong>
+            <div class="credential-item">
+                <span>Manager:</span> manager / manager123
+            </div>
+            <div class="credential-item">
+                <span>User:</span> user / user123
+            </div>
         </div>
         
         <div class="info">
-            <p>&copy; 2026 Jonathan & Denys Developers</p>
             <p>Secure Login | Role-Based Access Control</p>
+            <p>&copy; 2026 Jonathan & Denys Developers</p>
         </div>
     </div>
 </body>
