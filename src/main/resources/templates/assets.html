@@ -2,68 +2,516 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Assets - Airtel Rwanda</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background-color:#f5f5f5;}
-        .header{background-color:#E31E24;color:white;}
-        .user-info{background-color:#C8102E;padding:8px 0;}
-        .user-info .container{display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:0 auto;padding:0 20px;}
-        .welcome-text{font-size:14px;}
-        .role-badge{background-color:#8B0000;padding:4px 12px;border-radius:20px;font-size:12px;margin-left:10px;}
-        .logout-btn{color:white;text-decoration:none;background-color:#8B0000;padding:5px 15px;border-radius:5px;}
-        .change-pwd-btn{color:white;text-decoration:none;background-color:#8B0000;padding:5px 15px;border-radius:5px;margin-right:10px;}
-        .nav-bar{padding:1rem 0;}
-        .container{max-width:1400px;margin:0 auto;padding:0 20px;}
-        .nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;}
-        .logo{font-size:1.5rem;font-weight:bold;}
-        .logo span{color:#ffcc00;}
-        .nav-links{display:flex;list-style:none;gap:1rem;}
-        .nav-links a{color:white;text-decoration:none;padding:0.5rem 1rem;border-radius:5px;}
-        .nav-links a:hover,.nav-links a.active{background-color:#8B0000;}
-        .main-content{padding:2rem 0;}
-        .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;}
-        h1{color:#E31E24;}
-        .btn{display:inline-block;padding:0.5rem 1rem;border:none;border-radius:6px;cursor:pointer;text-decoration:none;}
-        .btn-primary{background-color:#E31E24;color:white;}
-        .btn-warning{background-color:#ffc107;color:#333;}
-        .btn-danger{background-color:#dc3545;color:white;}
-        .btn-sm{padding:0.25rem 0.5rem;font-size:0.875rem;}
-        .search-box{background:white;padding:1rem;border-radius:10px;margin-bottom:1rem;}
-        .search-form{display:flex;gap:1rem;}
-        .search-input{flex:1;padding:0.5rem;border:1px solid #ddd;border-radius:6px;}
-        .alert{padding:1rem;border-radius:8px;margin-bottom:1rem;}
-        .alert-success{background-color:#d4edda;color:#155724;}
-        .alert-error{background-color:#f8d7da;color:#721c24;}
-        .table-container{background:white;border-radius:10px;padding:1rem;overflow-x:auto;}
-        table{width:100%;border-collapse:collapse;}
-        th,td{padding:0.75rem;text-align:left;border-bottom:1px solid #eee;}
-        th{background-color:#f8f9fa;color:#E31E24;}
-        .badge{padding:0.25rem 0.5rem;border-radius:20px;font-size:0.75rem;}
-        .badge-success{background-color:#d4edda;color:#155724;}
-        .badge-warning{background-color:#fff3cd;color:#856404;}
-        .badge-danger{background-color:#f8d7da;color:#721c24;}
-        .action-btns{display:flex;gap:0.5rem;}
-        .footer{background-color:#E31E24;color:white;text-align:center;padding:1rem 0;margin-top:2rem;}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+        }
+        
+        /* Header Styles */
+        .header {
+            background-color: #E31E24;
+            color: white;
+        }
+        
+        .user-info {
+            background-color: #C8102E;
+            padding: 8px 0;
+        }
+        
+        .user-info .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .welcome-text {
+            font-size: 13px;
+        }
+        
+        .role-badge {
+            background-color: #8B0000;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            margin-left: 8px;
+        }
+        
+        .logout-btn {
+            color: white;
+            text-decoration: none;
+            background-color: #8B0000;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            transition: background 0.3s;
+            display: inline-block;
+        }
+        
+        .logout-btn:hover {
+            background-color: #5c0000;
+        }
+        
+        /* Navigation */
+        .nav-bar {
+            background-color: #E31E24;
+            padding: 10px 0;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: #ffcc00;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: #8B0000;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 20px 0;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        h1 {
+            color: #E31E24;
+            font-size: 24px;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #E31E24;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #C8102E;
+            transform: translateY(-2px);
+        }
+        
+        .btn-warning {
+            background-color: #ffc107;
+            color: #333;
+        }
+        
+        .btn-warning:hover {
+            background-color: #e0a800;
+            transform: translateY(-2px);
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+        
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 11px;
+        }
+        
+        /* Search Box */
+        .search-box {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .search-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            min-width: 200px;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #E31E24;
+        }
+        
+        /* Alert Messages */
+        .alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* Table Container */
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 900px;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #E31E24;
+        }
+        
+        tr:hover {
+            background-color: #fef5f5;
+        }
+        
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        
+        .badge-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .badge-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .badge-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* Action Buttons */
+        .action-btns {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #E31E24;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 20px;
+        }
+        
+        .footer p {
+            font-size: 12px;
+        }
+        
+        /* Tablet Styles */
+        @media (max-width: 1024px) {
+            .page-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .search-form {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .btn {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .user-info .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+            
+            .logo {
+                font-size: 1rem;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            table {
+                font-size: 11px;
+                min-width: 750px;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+            
+            .badge {
+                padding: 3px 8px;
+                font-size: 9px;
+            }
+            
+            .btn {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .table-container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 18px;
+            }
+            
+            .btn-primary {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .action-btns {
+                flex-direction: column;
+            }
+            
+            .btn-sm {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .footer p {
+                font-size: 10px;
+            }
+        }
+        
+        /* Landscape mode */
+        @media (max-width: 850px) and (orientation: landscape) {
+            .main-content {
+                padding: 10px 0;
+            }
+            
+            .table-container {
+                padding: 10px;
+            }
+            
+            th, td {
+                padding: 6px;
+                font-size: 10px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="user-info"><div class="container"><div><span class="welcome-text">👋 Welcome, <span sec:authentication="name"></span></span><span class="role-badge" th:text="'Role: ' + ${userRole}"></span></div><div><a href="/change-password" class="change-pwd-btn">🔐 Change Password</a><a href="/logout" class="logout-btn">🚪 Logout</a></div></div></div>
-        <div class="nav-bar"><div class="container"><div class="nav"><div class="logo">📱 AIRTEL <span>RWANDA</span></div><ul class="nav-links"><li><a href="/dashboard">Dashboard</a></li><li><a href="/assets" class="active">Assets</a></li><li><a href="/users">Users</a></li><li><a href="/assignments">Assignments</a></li><li><a href="/reports">Reports</a></li></ul></div></div></div>
+        <div class="user-info">
+            <div class="container">
+                <div>
+                    <span class="welcome-text">👋 Welcome, <span sec:authentication="name"></span></span>
+                    <span class="role-badge" th:text="'Role: ' + ${userRole}"></span>
+                </div>
+                <a href="/logout" class="logout-btn">🚪 Logout</a>
+            </div>
+        </div>
+        <div class="nav-bar">
+            <div class="container">
+                <div class="nav">
+                    <div class="logo">📱 AIRTEL <span>RWANDA</span></div>
+                    <ul class="nav-links">
+                        <li><a href="/dashboard">Dashboard</a></li>
+                        <li><a href="/assets" class="active">Assets</a></li>
+                        <li><a href="/users">Users</a></li>
+                        <li><a href="/assignments">Assignments</a></li>
+                        <li><a href="/reports">Reports</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="main-content"><div class="container">
-        <div class="page-header"><h1>📦 Asset Management</h1><a href="/assets/add" class="btn btn-primary">➕ Add New Asset</a></div>
-        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
-        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
-        <div class="search-box"><form method="get" action="/assets" class="search-form"><input type="text" name="search" class="search-input" placeholder="Search by name, serial, brand..." th:value="${searchKeyword}"><button type="submit" class="btn btn-primary">🔍 Search</button><a href="/assets" class="btn btn-primary">🔄 Reset</a></form></div>
-        <div class="table-container"><table><thead><tr><th>ID</th><th>Name</th><th>Type</th><th>Serial Number</th><th>Brand</th><th>Model</th><th>Status</th><th>Condition</th><th>Actions</th></tr></thead>
-        <tbody><tr th:each="asset : ${assets}"><td th:text="${asset.id}">-</td><td th:text="${asset.name}">-</td><td th:text="${asset.type}">-</td><td th:text="${asset.serialNumber}">-</td><td th:text="${asset.brand}">-</td><td th:text="${asset.model}">-</td>
-        <td><span class="badge" th:class="${asset.status == 'AVAILABLE' ? 'badge-success' : (asset.status == 'ASSIGNED' ? 'badge-warning' : 'badge-danger')}" th:text="${asset.status}">-</span></td>
-        <td><span class="badge" th:class="${asset.conditionStatus == 'GOOD' ? 'badge-success' : (asset.conditionStatus == 'FAIR' ? 'badge-warning' : 'badge-danger')}" th:text="${asset.conditionStatus}">-</span></td>
-        <td class="action-btns"><a th:href="@{/assets/edit/{id}(id=${asset.id})}" class="btn btn-warning btn-sm">✏️ Edit</a><a th:href="@{/assets/delete/{id}(id=${asset.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Delete this asset?')">🗑️ Delete</a></td></tr>
-        <tr th:if="${assets == null or assets.isEmpty()}"><td colspan="9" style="text-align:center">No assets found</td></tr></tbody></table></div>
-    </div></div>
-    <div class="footer"><div class="container"><p>&copy; 2024 Airtel Rwanda - Inventory System</p></div></div>
+    
+    <div class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>📦 Asset Management</h1>
+                <a href="/assets/add" class="btn btn-primary">➕ Add New Asset</a>
+            </div>
+            
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+            
+            <div class="search-box">
+                <form method="get" action="/assets" class="search-form">
+                    <input type="text" name="search" class="search-input" placeholder="Search by name, serial, brand..." th:value="${searchKeyword}">
+                    <button type="submit" class="btn btn-primary">🔍 Search</button>
+                    <a href="/assets" class="btn btn-primary">🔄 Reset</a>
+                </form>
+            </div>
+            
+            <div class="table-container">
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Serial</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>Status</th>
+                                <th>Condition</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="asset : ${assets}">
+                                <td th:text="${asset.id}">-</span></td>
+                                <td th:text="${asset.name}">-</span></td>
+                                <td th:text="${asset.type}">-</span></td>
+                                <td th:text="${asset.serialNumber}">-</span></td>
+                                <td th:text="${asset.brand}">-</span></td>
+                                <td th:text="${asset.model}">-</span></td>
+                                <td>
+                                    <span class="badge" th:class="${asset.status == 'AVAILABLE' ? 'badge-success' : (asset.status == 'ASSIGNED' ? 'badge-warning' : 'badge-danger')}" th:text="${asset.status}">-</span>
+                                </span></td>
+                                <td>
+                                    <span class="badge" th:class="${asset.conditionStatus == 'GOOD' ? 'badge-success' : (asset.conditionStatus == 'FAIR' ? 'badge-warning' : 'badge-danger')}" th:text="${asset.conditionStatus}">-</span>
+                                </span></td>
+                                <td class="action-btns">
+                                    <a th:href="@{/assets/edit/{id}(id=${asset.id})}" class="btn btn-warning btn-sm">✏️ Edit</a>
+                                    <a th:href="@{/assets/delete/{id}(id=${asset.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Delete this asset?')">🗑️ Delete</a>
+                                </span></td>
+                            </tr>
+                            <tr th:if="${assets == null or assets.isEmpty()}">
+                                <td colspan="9" style="text-align: center; padding: 30px;">No assets found</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="container">
+            <p>&copy; 2026 Jonathan & Denys Developers</p>
+        </div>
+    </div>
 </body>
 </html>
