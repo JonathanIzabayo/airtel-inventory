@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Airtel Rwanda - Login</title>
     <style>
         * {
@@ -9,58 +10,91 @@
             padding: 0;
             box-sizing: border-box;
         }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #E31E24 0%, #8B0000 100%);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 15px;
         }
+        
         .login-container {
             background: white;
             border-radius: 15px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            width: 450px;
-            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
             animation: fadeIn 0.5s ease-in;
         }
+        
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+        
         .logo {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
         }
+        
         .logo h1 {
             color: #E31E24;
-            font-size: 32px;
+            font-size: 24px;
             font-weight: bold;
+            margin-bottom: 5px;
         }
+        
         .logo p {
             color: #666;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-        .logo .airtel-badge {
-            background-color: #E31E24;
-            color: white;
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
             font-size: 12px;
-            margin-top: 10px;
         }
+        
+        /* Main Credential Box */
+        .main-credential {
+            background: linear-gradient(135deg, #E31E24 0%, #8B0000 100%);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .main-credential strong {
+            font-size: 12px;
+            opacity: 0.9;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .main-credential .cred {
+            font-size: 14px;
+            font-weight: bold;
+            word-wrap: break-word;
+        }
+        
+        /* Form Styles */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
+        
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: bold;
             color: #333;
+            font-size: 13px;
         }
+        
         input {
             width: 100%;
             padding: 12px;
@@ -68,11 +102,15 @@
             border-radius: 8px;
             font-size: 14px;
             transition: border-color 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
         }
+        
         input:focus {
             outline: none;
             border-color: #E31E24;
         }
+        
         .btn {
             width: 100%;
             padding: 12px;
@@ -84,62 +122,172 @@
             font-weight: bold;
             cursor: pointer;
             transition: transform 0.2s, background 0.3s;
+            margin-top: 5px;
         }
+        
         .btn:hover {
             background: #C8102E;
             transform: translateY(-2px);
         }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Message Styles */
+        .error-message, .success-message {
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+        
         .error-message {
             background-color: #ffe5e5;
             color: #E31E24;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
             border-left: 4px solid #E31E24;
-            font-size: 14px;
         }
-        .info {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            font-size: 12px;
-            color: #666;
-        }
-        .demo-credentials {
-            background-color: #f0f0f0;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-size: 12px;
-        }
-        .demo-credentials strong {
-            color: #E31E24;
-        }
-        .demo-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-top: 10px;
-        }
-        .demo-item {
-            background: white;
-            padding: 5px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .demo-item span {
-            color: #E31E24;
-            font-weight: bold;
-        }
+        
         .success-message {
             background-color: #d4edda;
             color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        
+        /* Credentials Box */
+        .credentials-box {
+            background-color: #f8f9fa;
             padding: 12px;
             border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #28a745;
-            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        .credentials-box strong {
+            color: #E31E24;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .credential-item {
+            background: white;
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            text-align: center;
+            font-size: 11px;
+            border: 1px solid #eee;
+        }
+        
+        .credential-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .credential-item span {
+            color: #E31E24;
+            font-weight: bold;
+        }
+        
+        /* Footer Info */
+        .info {
+            text-align: center;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 10px;
+            color: #888;
+        }
+        
+        .info p {
+            margin: 3px 0;
+        }
+        
+        /* Tablet Styles (768px - 1024px) */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .login-container {
+                max-width: 450px;
+                padding: 25px;
+            }
+            
+            .logo h1 {
+                font-size: 26px;
+            }
+            
+            input {
+                padding: 12px;
+            }
+            
+            .btn {
+                padding: 12px;
+            }
+        }
+        
+        /* Small Phones (up to 380px) */
+        @media (max-width: 380px) {
+            .login-container {
+                padding: 15px;
+            }
+            
+            .logo h1 {
+                font-size: 20px;
+            }
+            
+            .logo p {
+                font-size: 10px;
+            }
+            
+            .main-credential .cred {
+                font-size: 12px;
+            }
+            
+            input {
+                padding: 10px;
+                font-size: 13px;
+            }
+            
+            .btn {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .credential-item {
+                font-size: 10px;
+                padding: 6px;
+            }
+        }
+        
+        /* Landscape mode for phones */
+        @media (max-width: 850px) and (orientation: landscape) {
+            body {
+                padding: 10px;
+            }
+            
+            .login-container {
+                padding: 15px;
+                max-width: 500px;
+            }
+            
+            .logo h1 {
+                font-size: 20px;
+            }
+            
+            .form-group {
+                margin-bottom: 10px;
+            }
+            
+            input {
+                padding: 8px;
+            }
+            
+            .btn {
+                padding: 8px;
+            }
+            
+            .credentials-box {
+                margin-top: 10px;
+                padding: 8px;
+            }
         }
     </style>
 </head>
@@ -148,21 +296,30 @@
         <div class="logo">
             <h1>🏢 AIRTEL RWANDA</h1>
             <p>Inventory Management System</p>
-            <div class="airtel-badge">Enterprise Edition</div>
         </div>
         
+        <!-- Error/Success Messages -->
         <div th:if="${param.error}" class="error-message">
-            ❌ Invalid username or password. Please try again.
+            ❌ Invalid username or password
         </div>
         
         <div th:if="${param.logout}" class="success-message">
-            ✅ You have been logged out successfully.
+            ✅ Logged out successfully
         </div>
         
         <div th:if="${param.passwordChanged}" class="success-message">
-            ✅ Password changed successfully! Please login with your new password.
+            ✅ Password changed! Login again
         </div>
         
+        <!-- Main Admin Credentials -->
+        <div class="main-credential">
+            <strong>🔐 ADMIN LOGIN</strong>
+            <div class="cred">
+                24rp11881 / 24rp11334
+            </div>
+        </div>
+        
+        <!-- Login Form -->
         <form method="post" action="/login">
             <div class="form-group">
                 <label for="username">Username</label>
@@ -177,19 +334,20 @@
             <button type="submit" class="btn">Login to System</button>
         </form>
         
-        <div class="demo-credentials">
-            <strong>📋 Demo Credentials:</strong>
-            <div class="demo-grid">
-                <div class="demo-item"><span>Admin:</span> admin / admin123</div>
-                <div class="demo-item"><span>Manager:</span> manager / manager123</div>
-                <div class="demo-item"><span>User:</span> user / user123</div>
-                <div class="demo-item"><span>Jonathan:</span> jonathan / airtel123</div>
+        <!-- Other Credentials -->
+        <div class="credentials-box">
+            <strong>📋 OTHER CREDENTIALS</strong>
+            <div class="credential-item">
+                <span>Manager:</span> manager / manager123
+            </div>
+            <div class="credential-item">
+                <span>User:</span> user / user123
             </div>
         </div>
         
         <div class="info">
-            <p>&copy; 2026 -Jonathan & Denys</p>
             <p>Secure Login | Role-Based Access Control</p>
+            <p>&copy; 2026 Jonathan & Denys Developers</p>
         </div>
     </div>
 </body>
